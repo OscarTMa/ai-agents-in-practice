@@ -1,7 +1,9 @@
 # ai-agents-in-practice
 
 # AI Agents in Practice: Design, Implement, and Scale Autonomous AI Systems
+> ⚠️ **Under Construction**: This repository is actively being developed. Theory synthesis, architectural patterns, and code implementations are added as chapters progress.
 
+[![Status](https://img.shields.io/badge/Status-Under%20Construction-yellow.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org/)
 [![LangChain](https://img.shields.io/badge/Orchestration-LangChain%20%2F%20LangGraph-orange)](https://github.com/langchain-ai)
