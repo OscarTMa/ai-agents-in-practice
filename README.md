@@ -1,5 +1,3 @@
-# ai-agents-in-practice
-
 # AI Agents in Practice: Design, Implement, and Scale Autonomous AI Systems
 > ⚠️ **Under Construction**: This repository is actively being developed. Theory synthesis, architectural patterns, and code implementations are added as chapters progress.
 
