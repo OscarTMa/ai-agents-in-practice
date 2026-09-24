@@ -83,7 +83,7 @@ Chain-of-Thought (CoT): Step-by-step intermediate reasoning generation to solve 
 Analogical & Cross-Domain Generalization: Disentangling abstract concepts across disparate disciplines.
 
        3. Structural Mechanics: Tokenization, Embeddings & Transformers                     
-
+```text
 [Raw Text Input]
        │
        ▼
@@ -97,6 +97,8 @@ Analogical & Cross-Domain Generalization: Disentangling abstract concepts across
        │
        ▼
 [Logits / Softmax] ──> Next-token probability distribution (Autoregressive decoding)
+
+```
 
 Inference Modes: Consumed via cloud APIs (stateless HTTP endpoints or token streaming for low perceived latency) or hosted open-weights (e.g., LLaMA, Mistral) on sovereign infrastructure.
 
