@@ -55,7 +55,9 @@ ai-agents-in-practice/
 │       └── src/                               # Tracing, LangSmith/OpenTelemetry, evaluations & guardrails
 │
 └── tests/                                     # Unit and integration test suites
-📚 Study Guide & Deep Dives
+```
+
+## 📚 Study Guide & Deep Dives
 Part 1: Foundations of AI Workflows and the Rise of AI Agents
 Chapter 1: Evolution of GenAI Workflows
 Status: Theoretical Foundation (No direct agent build)
@@ -133,19 +135,26 @@ Bash
 git clone [https://github.com/](https://github.com/)<your-username>/ai-agents-in-practice.git
 cd ai-agents-in-practice
 2. Environment Setup
-Bash
+
+```Bash
 python3 -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install --upgrade pip
 pip install -r requirements.txt
+```
+
 3. Environment Variables
 Create a .env file in the project root:
 
+```Bash
 Ini, TOML
 OPENAI_API_KEY=your_openai_key
 ANTHROPIC_API_KEY=your_anthropic_key
 DEEPSEEK_API_KEY=your_deepseek_key
 LANGCHAIN_TRACING_V2=true
 LANGCHAIN_API_KEY=your_langsmith_key
-📄 License
+```
+
+## 📄 License
 This repository is licensed under the MIT License.
+
