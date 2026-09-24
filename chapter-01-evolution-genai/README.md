@@ -43,6 +43,7 @@ Characterized by bespoke, isolated pipelines (e.g., dedicated spam classifiers, 
 Generalist architectures trained on internet-scale data. They leverage transfer learning to project general world knowledge, grammar, syntax, and relational reasoning into downstream tasks with minimal data and compute.
 
 ### 2. Emergent Properties at Scale
+
 Emergent behaviors are qualitative capabilities that cannot be extrapolated from smaller models and appear spontaneously when models surpass critical parameter thresholds:
 
     - In-Context Learning (ICL): Task conditioning purely through prompt demonstrations without parameter optimization via backpropagation.
