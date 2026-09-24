@@ -57,7 +57,7 @@ ai-agents-in-practice/
 └── tests/                                     # Unit and integration test suites
 ```
 
-## 📚 Study Guide & Deep Dives
+# 📚 Study Guide & Deep Dives
 Part 1: Foundations of AI Workflows and the Rise of AI Agents
 Chapter 1: Evolution of GenAI Workflows
 Status: Theoretical Foundation (No direct agent build)
@@ -66,13 +66,14 @@ Summary: Deep dive into how generative AI evolved from task-specific narrow mode
 
 Detailed Module Documentation: part-1-foundations/chapter-01-evolution-genai/README.md
 
-🔬 Chapter 1 Synthesis: Evolution of GenAI Workflows
-1. Narrow AI vs. Foundation Models
+## 🔬 Chapter 1 Synthesis: Evolution of GenAI Workflows
+
+       1. Narrow AI vs. Foundation Models
 Narrow AI (Pre-2022): Bespoke pipelines with dedicated architectures, custom datasets, and rigid routines for single tasks (e.g., spam classifiers, NER, isolated summarizers). Highly brittle to distribution shift and costly to maintain.
 
 Foundation Models: Massively pre-trained over multimodal, web-scale corpora. Leverages transfer learning to encode general latent representations of syntax, semantics, and world dynamics, allowing zero-shot/few-shot adaptation with minimal compute.
 
-2. Emergent Capabilities at Scale
+       2. Emergent Capabilities at Scale
 Properties not explicitly programmed into smaller architectures that manifest purely through parameter and compute scaling:
 
 In-Context Learning (ICL): Adapting behavior dynamically from prompt demonstrations without backpropagation.
@@ -81,8 +82,8 @@ Chain-of-Thought (CoT): Step-by-step intermediate reasoning generation to solve 
 
 Analogical & Cross-Domain Generalization: Disentangling abstract concepts across disparate disciplines.
 
-3. Structural Mechanics: Tokenization, Embeddings & Transformers
-Plaintext
+       3. Structural Mechanics: Tokenization, Embeddings & Transformers                     
+
 [Raw Text Input]
        │
        ▼
@@ -96,21 +97,22 @@ Plaintext
        │
        ▼
 [Logits / Softmax] ──> Next-token probability distribution (Autoregressive decoding)
+
 Inference Modes: Consumed via cloud APIs (stateless HTTP endpoints or token streaming for low perceived latency) or hosted open-weights (e.g., LLaMA, Mistral) on sovereign infrastructure.
 
-4. Parameter-Efficient Fine-Tuning (PEFT) & Optimization
+       4. Parameter-Efficient Fine-Tuning (PEFT) & Optimization
 LoRA (Low-Rank Adaptation): Freezes pre-trained backbone weights and injects trainable rank-decomposition matrices into attention projections, radically lowering VRAM requirements.
 
 Adapters & Prefix/Prompt Tuning: Inserts small auxiliary layers or learnable prefix vectors while preserving foundational parameters intact.
 
 Knowledge Distillation (KD): Compresses high-capacity Teacher models into compact Student models (SLMs) by supervising the student on soft label probability distributions, retaining nuanced latent reasoning.
 
-5. Reasoning Language Models (RLMs)
+       5. Reasoning Language Models (RLMs)
 Inference-Time Deliberation: Shift from single-pass autoregression to allocating test-time compute for internal multi-step deliberation (private chain-of-thought), exemplified by OpenAI o1/o3 and DeepSeek-R1.
 
 Reinforcement Learning Breakthroughs: DeepSeek demonstrated that pure RL (R1-Zero) followed by cold-start supervised fine-tuning and iterative rejection sampling can match elite reasoning benchmarks without requiring massive human-annotated datasets.
 
-6. The Bridge to Agents: Overcoming the 4 Bottlenecks of LLMs
+       6. The Bridge to Agents: Overcoming the 4 Bottlenecks of LLMs
 While RAG grounded LLMs in non-parametric data and Multimodality expanded their sensory boundaries, classical LLMs remain fundamentally bottlenecked:
 
 Bottleneck in Classical LLMs	Agentic Architecture Solution
