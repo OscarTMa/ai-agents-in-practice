@@ -44,13 +44,13 @@ Generalist architectures trained on internet-scale data. They leverage transfer 
 
 ### 2. Emergent Properties at Scale
 Emergent behaviors are qualitative capabilities that cannot be extrapolated from smaller models and appear spontaneously when models surpass critical parameter thresholds:
-    *In-Context Learning (ICL): Task conditioning purely through prompt demonstrations without parameter optimization via backpropagation.
+    * In-Context Learning (ICL): Task conditioning purely through prompt demonstrations without parameter optimization via backpropagation.
 
-    *Chain-of-Thought (CoT) Prompting: Step-by-step intermediate reasoning paths that allow models to solve multi-step symbolic, logic, and arithmetic operations.
+    * Chain-of-Thought (CoT) Prompting: Step-by-step intermediate reasoning paths that allow models to solve multi-step symbolic, logic, and arithmetic operations.
 
-     *Analogical & Cross-Domain Reasoning: Abstracting relational mappings across dissimilar domains (e.g., legal synthesis via software design metaphors).
+     * Analogical & Cross-Domain Reasoning: Abstracting relational mappings across dissimilar domains (e.g., legal synthesis via software design metaphors).
 
-     *Multi-Task Generalization: Unified handling of heterogeneous tasks (translation, summarization, extraction, code generation) under a single model checkpoint.
+     * Multi-Task Generalization: Unified handling of heterogeneous tasks (translation, summarization, extraction, code generation) under a single model checkpoint.
 
 ### 3. Mechanics Under the Hood: From Tokens to Next-Token PredictionPlaintext[ Input Text ]
 
@@ -72,7 +72,10 @@ Emergent behaviors are qualitative capabilities that cannot be extrapolated from
                              $P(w_{t} \mid w_{<t}) = \text{softmax}(W \cdot h_t)$
 ```
 
-Inference Modes:Stateless HTTP API: Model processes input and yields output after full sequence generation.Token Streaming: Emits tokens incrementally as they are sampled, reducing perceived latency in interactive environments.Private vs. Open-Weights: Proprietary cloud APIs (OpenAI, Anthropic, Google) versus locally or sovereignly hosted open models (LLaMA, Mistral, DeepSeek).4. Efficient Adaptation: PEFT & Knowledge DistillationScaling constraints make full-parameter retraining cost-prohibitive. Two primary engineering paradigms address efficiency:Parameter-Efficient Fine-Tuning (PEFT)LoRA (Low-Rank Adaptation): Freezes the base transformer weights $W_0 \in \mathbb{R}^{d \times k}$ and introduces trainable low-rank decomposition matrices $A \in \mathbb{R}^{r \times k}$ and $B \in \mathbb{R}^{d \times r}$ with rank $r \ll \min(d, k)$:$$W = W_0 + \Delta W = W_0 + B \cdot A$$Adapters: Lightweight neural modules inserted between existing transformer sub-layers; only adapter weights are modified during fine-tuning.Prefix & Prompt Tuning: Learnable continuous task-specific vectors prepended to keys/values or input embeddings without altering internal weights.Knowledge Distillation (KD)Compresses knowledge from a massive, high-capacity Teacher model into a compact Student model (SLM):Hard Labels: The discrete argmax token emitted by the teacher.Soft Labels: The full probability distribution across the entire vocabulary emitted by the teacher's softmax layer. Soft labels expose the dark knowledge, confidence margins, and latent thought distributions of the teacher model.5. Reasoning Language Models (RLMs)A fundamental paradigm shift occurred with models prioritizing test-time compute over pure autoregressive next-token prediction (OpenAI o1/o3, DeepSeek-R1).PlaintextStandard LLM:   Prompt ─────────────────────────────────────────────────────────> Direct Output
+Inference Modes:Stateless HTTP API: Model processes input and yields output after full sequence generation.Token Streaming: Emits tokens incrementally as they are sampled, reducing perceived latency in interactive environments.Private vs. Open-Weights: Proprietary cloud APIs (OpenAI, Anthropic, Google) versus locally or sovereignly hosted open models (LLaMA, Mistral, DeepSeek).
+
+### 4. Efficient Adaptation: 
+PEFT & Knowledge DistillationScaling constraints make full-parameter retraining cost-prohibitive. Two primary engineering paradigms address efficiency:Parameter-Efficient Fine-Tuning (PEFT)LoRA (Low-Rank Adaptation): Freezes the base transformer weights $W_0 \in \mathbb{R}^{d \times k}$ and introduces trainable low-rank decomposition matrices $A \in \mathbb{R}^{r \times k}$ and $B \in \mathbb{R}^{d \times r}$ with rank $r \ll \min(d, k)$:$$W = W_0 + \Delta W = W_0 + B \cdot A$$Adapters: Lightweight neural modules inserted between existing transformer sub-layers; only adapter weights are modified during fine-tuning.Prefix & Prompt Tuning: Learnable continuous task-specific vectors prepended to keys/values or input embeddings without altering internal weights.Knowledge Distillation (KD)Compresses knowledge from a massive, high-capacity Teacher model into a compact Student model (SLM):Hard Labels: The discrete argmax token emitted by the teacher.Soft Labels: The full probability distribution across the entire vocabulary emitted by the teacher's softmax layer. Soft labels expose the dark knowledge, confidence margins, and latent thought distributions of the teacher model.5. Reasoning Language Models (RLMs)A fundamental paradigm shift occurred with models prioritizing test-time compute over pure autoregressive next-token prediction (OpenAI o1/o3, DeepSeek-R1).PlaintextStandard LLM:   Prompt ─────────────────────────────────────────────────────────> Direct Output
                                                                                     (Single-pass inference)
 
 Reasoning Model: Prompt ───> [ Internal Deliberation / Private CoT ] ────────────> Verified Output
