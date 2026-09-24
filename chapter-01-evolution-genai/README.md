@@ -47,13 +47,13 @@ Generalist architectures trained on internet-scale data. They leverage transfer 
 
 Emergent behaviors are qualitative capabilities that cannot be extrapolated from smaller models and appear spontaneously when models surpass critical parameter thresholds:
 
-* In-Context Learning (ICL): Task conditioning purely through prompt demonstrations without parameter optimization via backpropagation.
+* **In-Context Learning (ICL)**: Task conditioning purely through prompt demonstrations without parameter optimization via backpropagation.
 
-* Chain-of-Thought (CoT) Prompting: Step-by-step intermediate reasoning paths that allow models to solve multi-step symbolic, logic, and arithmetic operations.
+* **Chain-of-Thought (CoT) Prompting: Step-by-step intermediate reasoning paths that allow models to solve multi-step symbolic, logic, and arithmetic operations.
 
-* Analogical & Cross-Domain Reasoning: Abstracting relational mappings across dissimilar domains (e.g., legal synthesis via software design metaphors).
+* **Analogical & Cross-Domain Reasoning**: Abstracting relational mappings across dissimilar domains (e.g., legal synthesis via software design metaphors).
 
-* Multi-Task Generalization: Unified handling of heterogeneous tasks (translation, summarization, extraction, code generation) under a single model checkpoint.
+* **Multi-Task Generalization**: Unified handling of heterogeneous tasks (translation, summarization, extraction, code generation) under a single model checkpoint.
 
 ### 3. Mechanics Under the Hood: From Tokens to Next-Token PredictionPlaintext[ Input Text ]
 
