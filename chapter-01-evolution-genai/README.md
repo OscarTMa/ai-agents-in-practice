@@ -46,7 +46,7 @@ Generalist architectures trained on internet-scale data. They leverage transfer 
 
 Emergent behaviors are qualitative capabilities that cannot be extrapolated from smaller models and appear spontaneously when models surpass critical parameter thresholds:
 
-    - In-Context Learning (ICL): Task conditioning purely through prompt demonstrations without parameter optimization via backpropagation.
+    * In-Context Learning (ICL): Task conditioning purely through prompt demonstrations without parameter optimization via backpropagation.
 
     + Chain-of-Thought (CoT) Prompting: Step-by-step intermediate reasoning paths that allow models to solve multi-step symbolic, logic, and arithmetic operations.
 
