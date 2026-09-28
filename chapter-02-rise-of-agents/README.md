@@ -1,25 +1,24 @@
 # Chapter 2: The Rise of AI Agents
 
-> **Part 1:** Foundations of AI Workflows and the Rise of AI Agents  
-> **Status:** Architecture Fundamentals & Initial Implementation  
-> **Implementation Target:** `src/baseline_agent.py`
+> **Status:** Completed & Validated  
+> **Source Target:** `chapter-02-rise-of-agents/src/baseline_agent.py`  
+> **Engine:** Google Gemini (`gemini-2.5-flash` via `google-genai` SDK)
 
 ---
 
-## Overview & Learning Objectives
+## 📌 Overview & Learning Objectives
 
-This chapter transitions from foundation models to agentic architectures. It formalizes what constitutes an AI agent, how it diverges from deterministic automation, and decomposes the four pillars that govern autonomous systems: Brain (Core LLM), Tools, Memory, and Planning.
+This module transitions from theoretical foundation models to autonomous, goal-oriented agentic workflows. It implements a baseline agent executing the **ReAct (Reason + Act)** pattern with strict input validation via Pydantic schemas, explicit stop sequences, and an external tool registry.
 
-By the end of this module, the core concepts covered are:
-1. The structural boundary between traditional automation (RPA/scripts) and goal-driven AI agents.
-2. The core anatomy of an agent: Brain, Tools, Memory, and Planning.
-3. The Perception-Reasoning-Action loop (*Observe-Orient-Decide-Act* cycle).
-4. Foundational reasoning patterns: ReAct (Reason + Act), Plan-and-Solve, and self-reflection loops.
-5. Implementation of a functional baseline agent with tool execution and runtime state management.
+Key concepts implemented and validated:
+1. **The Core Anatomy of an AI Agent:** Orchestrating the Brain (Gemini LLM), Actuators (Tools), Memory (Runtime Scratchpad), and Planning (Dynamic Reflection).
+2. **ReAct Loop Execution:** Interleaving explicit reasoning (`Thought`), tool selection (`Action`), argument emission (`Action Input`), and environmental feedback (`Observation`).
+3. **Structured Tool Interfaces:** Defining deterministic tools with strong schema constraints using Pydantic v2 models.
+4. **Autonomous Goal Termination:** Evaluating environmental state and returning control when the objective is met.
 
 ---
 
-## Architectural Concepts & Theoretical Deep Dive
+## 🧠 Architectural Concepts & Theoretical Deep Dive
 
 ### 1. Deterministic Automation vs. Goal-Driven Agents
 
@@ -78,45 +77,95 @@ An agent operates as an integrated software system structured around four fundam
 
 ---
 
-### 3. Reasoning Patterns: The ReAct Framework
-
-The ReAct (*Reason + Act*) paradigm interleaves explicit verbal reasoning steps with concrete actions, improving interpretability and factual accuracy:
+## 🏗️ Execution Architecture & Runtime Flow
 
 ```text
-User Query: "Check server load on Node-04 and alert DevOps if CPU > 85%"
-
-Thought 1: I need to query telemetry metrics for Node-04.
-Action 1:  get_node_metrics(node_id="Node-04")
-Observation 1: {"cpu_utilization": 91.2, "status": "nominal"}
-
-Thought 2: CPU utilization is 91.2%, which exceeds the 85% threshold. I must notify DevOps.
-Action 2:  send_alert(channel="devops-alerts", severity="HIGH", message="Node-04 CPU at 91.2%")
-Observation 2: {"status": "delivered", "timestamp": "2026-09-27T14:50:00Z"}
-
-Thought 3: The alert has been delivered. The task is complete.
-Final Answer: Server Node-04 was evaluated at 91.2% CPU utilization. A HIGH severity alert was dispatched to the devops-alerts channel.
+                               ┌──────────────────────────────────────────────┐
+                               │         User Goal: Infrastructure Query       │
+                               └──────────────────────┬───────────────────────┘
+                                                      │
+                                                      ▼
+                                       ┌─────────────────────────────┐
+                                       │   Baseline Agent (ReAct)    │
+                                       │   Runtime Context / Scratch │
+                                       └──────────────┬──────────────┘
+                                                      │
+                              ┌───────────────────────┴───────────────────────┐
+                              ▼                                               ▼
+               ┌─────────────────────────────┐                 ┌─────────────────────────────┐
+               │    Brain: Google Gemini     │                 │        Tool Registry        │
+               │  Inference-Time Deliberate  │ ── [Action] ──> │ • database_lookup (Pydantic)│
+               │  Evaluates Observation data │ <─ [Feedback] ─ │ • calculator (Safe Eval)    │
+               └─────────────────────────────┘                 └─────────────────────────────┘
+                                                      │
+                                                      ▼
+                                       ┌─────────────────────────────┐
+                                       │     Final Answer Synthesized│
+                                       │     Status: COMPLETED       │
+                                       └─────────────────────────────┘
 ```
 
 ---
 
-## Source Implementation: Baseline Agent
+## 📂 Source Code Structure
 
-The accompanying implementation in `src/` establishes a modular, production-ready baseline agent utilizing Python, strict Pydantic schemas, and structured tool routing.
-
-### Directory Structure
 ```text
 chapter-02-rise-of-agents/
-├── README.md                  # Conceptual architecture (this file)
+├── README.md                      # Architecture documentation and terminal traces (this file)
 └── src/
-    ├── __init__.py
-    ├── tools.py               # Deterministic tool interfaces with Pydantic schemas
-    └── baseline_agent.py      # Execution loop, prompt orchestration, and state handling
+    ├── __init__.py                # Package exports
+    ├── tools.py                   # Pydantic argument schemas and tool registry
+    └── baseline_agent.py          # Google GenAI ReAct loop orchestration
 ```
 
 ---
 
-## References
+## 🚀 Execution & Verification
 
-* **ReAct Pattern:** Yao, S., et al. (2022). *ReAct: Synergizing Reasoning and Acting in Language Models*. [arXiv:2210.03629](https://arxiv.org/abs/2210.03629)
-* **LLM Powered Autonomous Agents:** Weng, L. (2023). *LLM Powered Autonomous Agents*. Lil'Log.
-* **Plan-and-Solve Prompting:** Wang, L., et al. (2023). *Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models*. [arXiv:2305.04091](https://arxiv.org/abs/2305.04091)
+### 1. Environment Activation
+```bash
+cd ~/AI-Agents/ai-agents-in-practice
+source .venv/bin/activate
+```
+
+### 2. Run the Agent
+```bash
+export GOOGLE_API_KEY="your-api-key"
+python chapter-02-rise-of-agents/src/baseline_agent.py
+```
+
+---
+
+## 📊 Execution Log & Runtime Trajectory
+
+Below is the execution output obtained running on `llm-node`:
+
+```text
+(ai-agents-in-practice) oscar@llm-node:~/AI-Agents/ai-agents-in-practice$ python chapter-02-rise-of-agents/src/baseline_agent.py
+
+[Agent Initialized] Goal: Check the health status of node_paris_01 and summarize it.
+============================================================
+
+--- Iteration 1/5 ---
+Action: database_lookup
+Action Input: {"query_key": "node_paris_01"}
+Observation: Status: ONLINE | Load: 42% | Memory: 18.4GB/32GB | Uptime: 45d
+
+--- Iteration 2/5 ---
+Thought: I have already retrieved the health status of node_paris_01. The observation provides all the necessary information: Status, Load, Memory, and Uptime. I can now summarize this information to answer the user's request.
+I now have the final answer.
+Final Answer: Node node_paris_01 is ONLINE, with a load of 42%, memory usage of 18.4GB out of 32GB, and an uptime of 45 days.
+
+============================================================
+Status: COMPLETED
+Final Outcome: Node node_paris_01 is ONLINE, with a load of 42%, memory usage of 18.4GB out of 32GB, and an uptime of 45 days.
+```
+
+---
+
+## 🔍 Trajectory Breakdown
+
+| Step | State | Action Taken | Result / Environmental Feedback |
+| :--- | :--- | :--- | :--- |
+| **Iter 1** | Target entity unobserved | Call `database_lookup` with `{"query_key": "node_paris_01"}` | Mock DB returned live status: `ONLINE`, load: `42%`, memory: `18.4GB/32GB`, uptime: `45d`. |
+| **Iter 2** | Target entity observed | Self-reflection detects data completeness | Emitted `Final Answer:` synthesizing telemetry into natural language. Execution halted. |
