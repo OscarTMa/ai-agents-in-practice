@@ -65,23 +65,22 @@ graph TD
 ### 2. Degrees of Human Oversight
 
 ```mermaid
-stateDiagram-v2
-    direction LR
-    [*] --> Human_In_The_Loop: High-Stakes Action
-    [*] --> Human_On_The_Loop: Standard Operation
-    [*] --> Human_Out_Of_The_Loop: Micro-Operations
+graph LR
+    Trigger[Action Trigger / Task Nature] -->|High-Stakes| HITL[Human-in-the-Loop]
+    Trigger -->|Standard Operation| HOTL[Human-on-the-Loop]
+    Trigger -->|Micro-Operations| HOOTL[Human-out-of-the-Loop]
 
-    state Human_In_The_Loop {
-        description: Medical diagnosis signoff, financial transfer > $500, production deployment.
-    }
+    subgraph HITL_Scope [Strict Pre-Execution Gate]
+        HITL --> HITL_Desc["• Medical diagnosis signoff<br/>• Financial refunds > $500<br/>• Production deployment"]
+    end
 
-    state Human_On_The_Loop {
-        description: Real-time dashboard monitoring with override capability and kill-switch.
-    }
+    subgraph HOTL_Scope [Active Oversight & Interception]
+        HOTL --> HOTL_Desc["• Real-time telemetry monitoring<br/>• Manual override controls<br/>• Emergency Kill-Switch"]
+    end
 
-    state Human_Out_Of_The_Loop {
-        description: Low-latency caching, unit conversions, text tokenization.
-    }
+    subgraph HOOTL_Scope [Full Deterministic Autonomy]
+        HOOTL --> HOOTL_Desc["• Low-latency caching<br/>• Unit & format conversions<br/>• Text tokenization & parsing"]
+    end
 ```
 
 ---
@@ -99,7 +98,7 @@ sequenceDiagram
     participant DB as Audit Trail (SQLite)
     participant Human as Human Supervisor
 
-    User->>Guard: "Refund $1,200 for user john.doe@example.com"
+    User->>Guard: "Issue a customer refund of $1200.00 for client email john.doe@example.com immediately."
     Guard->>Guard: PII Masking: Redact Email Address
     Guard->>Agent: Sanitized Request: [REDACTED_EMAIL]
     Agent->>Agent: Trajectory Decision: Propose refund ($1,200)
