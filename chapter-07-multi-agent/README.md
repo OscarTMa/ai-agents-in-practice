@@ -125,4 +125,44 @@ python chapter-07-multi-agent/src/portfolio_supervisor.py
 Below is the verified multi-agent supervisor trace obtained running on `llm-node`:
 
 ```text
-(ai-agents-in-practice) oscar@
+(ai-agents-in-practice) oscar@llm-node:~/AI-Agents/ai-agents-in-practice$ python chapter-07-multi-agent/src/portfolio_supervisor.py
+
+[Multi-Agent System Initialized]
+Goal: Generate a well structured report on how to improve my portfolio given the market landscape in Q4 2025.
+=================================================================
+
+{'supervisor': {'next': 'search'}}
+---
+{'search': {'messages': ['**Portfolio Improvement Report Based on Market Landscape Q4 2025**\n\n### 1. Market Landscape Highlights for Q4 2025:\n- El...']}}
+---
+
+{'supervisor': {'next': 'read_portfolio'}}
+---
+{'read_portfolio': {'messages': ['Portfolio Overview:\n- AAPL (Technology): 13 shares @ $172.50 (Total: $2242.50)\n- MSFT (Technology): 8 shares @ $415.00 (...']}}
+---
+
+{'supervisor': {'next': 'doc_writer'}}
+---
+{'doc_writer': {'messages': ['Report successfully saved to /home/oscar/AI-Agents/ai-agents-in-practice/outputs/Portfolio_Optimization_Q4_2025.txt']}}
+---
+
+{'supervisor': {'next': '__end__'}}
+
+=================================================================
+Status: COMPLETED
+Output: Report successfully saved to /home/oscar/AI-Agents/ai-agents-in-practice/outputs/Portfolio_Optimization_Q4_2025.txt
+```
+
+---
+
+## 🔍 Trajectory Breakdown
+
+| Step | Node / Actor | State Transition | Operational Feedback |
+| :--- | :--- | :--- | :--- |
+| **1** | `supervisor` | Evaluates prompt $\rightarrow$ Routes to `search` | Supervisor detects the need for macro market context and dispatches to the market research agent. |
+| **2** | `search` | Gathers trends $\rightarrow$ Reports to `supervisor` | Returns Q4 2025 macro highlights: interest rate climate and tech equity dispersion. |
+| **3** | `supervisor` | Evaluates state $\rightarrow$ Routes to `read_portfolio` | Supervisor notices lack of portfolio breakdown and routes to the portfolio reader agent. |
+| **4** | `read_portfolio` | Reads JSON $\rightarrow$ Reports to `supervisor` | Parses `sample_portfolio.json` extracting positions in AAPL, MSFT, JPM, NVDA. |
+| **5** | `supervisor` | Evaluates state $\rightarrow$ Routes to `doc_writer` | All context gathered; supervisor dispatches synthesis and document generation. |
+| **6** | `doc_writer` | Saves report $\rightarrow$ Reports to `supervisor` | Synthesizes insights and writes `Portfolio_Optimization_Q4_2025.txt` to the `outputs/` folder. |
+| **7** | `supervisor` | Evaluates state $\rightarrow$ Terminates (`__end__`) | All subtasks complete; supervisor exits graph loop with `Status: COMPLETED`. |
