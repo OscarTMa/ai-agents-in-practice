@@ -6,248 +6,248 @@
 [![Schemas: Pydantic v2](https://img.shields.io/badge/Contracts-Pydantic%20v2-red.svg)](https://docs.pydantic.dev/)
 [![Platform: Linux Ubuntu](https://img.shields.io/badge/Runtime-Linux%20Ubuntu-informational.svg)](https://ubuntu.com/)
 
-Un repositorio técnico de referencia que recorre la arquitectura completa del ciclo de vida agentico: desde los fundamentos cognitivos de inferencia y loops ReAct, hasta la orquestación distribuida, protocolos de interoperabilidad abierta (MCP, A2A, ACP) y defensas éticas multi-nivel para producción.
+A practical, code-first technical repository covering the entire agentic architecture lifecycle: from cognitive inference foundations and ReAct loops to distributed multi-agent systems, open interoperability protocols (MCP, A2A, ACP), and production-grade ethical guardrail pipelines.
 
 ---
 
-## 🏗️ Mapa de Navegación del Repositorio
+## 🏗️ Repository Architecture & Navigation
 
-El proyecto implementa un enfoque **code-first** donde cada capítulo dispone de su propia arquitectura aislada, esquemas Pydantic v2 y trazas de ejecución en tiempo real verificadas en Ubuntu (`llm-node`):
+The repository follows a modular, code-first directory structure. Every chapter features its own theoretical design, validated Pydantic v2 schemas, and runtime execution logs executed in a Linux Ubuntu environment (`llm-node`):
 
 ```text
 ai-agents-in-practice/
-├── README.md                                  # Visión global y arquitectura del proyecto (este archivo)
-├── chapter-01-foundations/                    # Fundamentos: LLMs, Inferencia y RAG Estático
+├── README.md                                  # Repository overview and master blueprint (this file)
+├── chapter-01-foundations/                    # Foundations: LLM Inference & Static Retrieval
 │   ├── README.md
 │   └── src/
-├── chapter-02-rise-of-agents/                 # El Loop ReAct y la Anatomía Básica del Agente
+├── chapter-02-rise-of-agents/                 # The ReAct Loop & Core Agent Anatomy
 │   ├── README.md
 │   └── src/
-├── chapter-03-orchestrators/                  # Orquestadores: Abstracción, Flujos y Jerarquías
+├── chapter-03-orchestrators/                  # Orchestrators: Abstraction, Workflows & Hierarchies
 │   ├── README.md
 │   └── src/orchestrator.py
-├── chapter-04-memory/                         # Taxonomía de Memoria: STM, Caché Sémantico y LTM Episódica
+├── chapter-04-memory/                         # Memory Taxonomy: STM, Semantic Cache & Episodic LTM
 │   ├── README.md
 │   └── src/memory_agent.py
-├── chapter-05-tools/                          # Integración de Herramientas: Sync, Async (I/O) y RAG Agentico
+├── chapter-05-tools/                          # Tool Integrations: Sync, Async (I/O) & Agentic RAG
 │   ├── README.md
 │   └── src/tool_integration_agent.py
-├── chapter-06-langchain-agent/                # Agente de Comercio Electrónico Integral (AskMamma)
+├── chapter-06-langchain-agent/                # End-to-End E-Commerce Agent (AskMamma)
 │   ├── README.md
 │   └── src/ask_mamma_agent.py
-├── chapter-07-multi-agent/                    # Sistemas Multi-Agente y Orquestación por Grafos (LangGraph)
+├── chapter-07-multi-agent/                    # Multi-Agent Systems & Graph Routing (LangGraph)
 │   ├── README.md
 │   └── src/portfolio_supervisor.py
-├── chapter-08-protocols/                      # Protocolos de Próxima Generación: MCP, A2A y ACP
+├── chapter-08-protocols/                      # Next-Gen Protocols: MCP, A2A & ACP
 │   ├── README.md
 │   └── src/agent_protocols.py
-└── chapter-09-ethics-guardrails/              # Ética, Detección de Inyecciones, HITL y Auditoría Forense
+└── chapter-09-ethics-guardrails/              # Safety: PII Redaction, Injection Filters, HITL & Audit
     ├── README.md
     └── src/guardrail_pipeline.py
 ```
 
 ---
 
-## 🧠 Arquitectura Global del Sistema Agentico
+## 🧠 End-to-End System Blueprint
 
-A lo largo de los capítulos, el sistema evoluciona desde llamadas directas hacia una arquitectura desacoplada y descentralizada compuesta por tres planos operativos:
+Across the chapters, the architecture transitions from simple monolithic API calls to a multi-tiered distributed ecosystem:
 
 ```mermaid
 graph TD
-    subgraph Client_and_Web [Plano de Ingress y Agentic Web]
-        User[Usuario / Evento / Disparador] --> IngressShield[Guardrail de Ingress: PII & Injection Defense]
-        IngressShield --> AgentCore[Core Agent / LLM Brain: Gemini 2.5 Flash]
+    subgraph Ingress_and_Agentic_Web [Ingress & Agentic Web Plane]
+        User[User / Client Event] --> IngressShield[Ingress Guardrail: PII & Injection Defense]
+        IngressShield --> AgentCore[Core Agent Brain: Gemini 2.5 Flash]
     end
 
-    subgraph Orchestration_and_Memory [Plano de Razonamiento y Estado]
+    subgraph Reasoning_and_Memory [Reasoning & State Management Plane]
         AgentCore <--> STM[Short-Term Memory / Rolling Window]
         AgentCore <--> SemCache[Semantic In-Memory Cache]
         AgentCore <--> LTM[Episodic & Semantic Vector Store]
         AgentCore --> Supervisor[Supervisor / Orchestration Engine]
     end
 
-    subgraph Execution_and_Protocols [Plano de Actuación y Protocolos]
-        Supervisor -->|JSON-RPC 2.0| MCP[MCP Server: APIs, Bases SQL, Herramientas]
-        Supervisor -->|Agent Card P2P| A2A[A2A Protocol: Red de Agentes Especializados]
-        Supervisor -->|Smart Contract Escrow| ACP[ACP Commerce: Liquidación y Verificación Oracle]
+    subgraph Execution_and_Protocols [Execution & Protocol Interoperability Plane]
+        Supervisor -->|JSON-RPC 2.0| MCP[MCP Server: APIs, SQL DBs, Tools]
+        Supervisor -->|Agent Card P2P| A2A[A2A Protocol: Federated Peer Agents]
+        Supervisor -->|Smart Contract Escrow| ACP[ACP Commerce: Settlement & AI Oracle]
     end
 
-    subgraph Governance_and_Egress [Plano de Egress y Cumplimiento]
-        Supervisor --> PolicyGate{Validación de Políticas & Umbrales}
-        PolicyGate -->|Riesgo Alto / Crítico| HITL[Human-in-the-Loop Approval]
-        PolicyGate -->|Operación Segura| TargetExec[Ejecución en Entorno Real]
-        HITL -->|Aprobado| TargetExec
-        TargetExec --> AuditTrail[(Registro Forense Inmutable: EU AI Act)]
+    subgraph Governance_and_Egress [Governance & Egress Enforcement Plane]
+        Supervisor --> PolicyGate{Policy & Value Threshold Check}
+        PolicyGate -->|High Stakes / Value > $500| HITL[Human-in-the-Loop Escalation]
+        PolicyGate -->|Autonomous Safe Lane| TargetExec[Production System Execution]
+        HITL -->|Approved| TargetExec
+        TargetExec --> AuditTrail[(Immutable Audit Ledger: EU AI Act)]
     end
 ```
 
 ---
 
-## 📚 Síntesis Modular por Capítulos
+## 📚 Curriculum Breakdown & Implementations
 
-### 1. Fundamentos & Inferencia (`chapter-01-foundations`)
-* **Concepto:** Diferencia entre generación de texto estática y razonamiento adaptativo.
-* **Técnica:** Despliegue de los primeros prompts estructurados y canalizaciones RAG deterministas.
+### 1. Foundations of Agentic AI (`chapter-01-foundations`)
+* **Core Concept:** Moving from deterministic generation to agentic deliberation.
+* **Deliverable:** Baseline inference configurations, prompt grounding, and static retrieval pipelines.
 
-### 2. El Surgimiento de los Agentes (`chapter-02-rise-of-agents`)
-* **Concepto:** El bucle fundamental **Thought $\rightarrow$ Action $\rightarrow$ Observation** (ReAct).
-* **Entregable:** Implementación de un agente reactivo capaz de introspección e inspección de salidas intermedias.
+### 2. The Rise of AI Agents (`chapter-02-rise-of-agents`)
+* **Core Concept:** The foundational **Thought $\rightarrow$ Action $\rightarrow$ Observation** (ReAct) cycle.
+* **Deliverable:** Single-agent ReAct loop capable of iterative tool selection, execution, and intermediate reflection.
 
-### 3. La Necesidad de un Orquestador (`chapter-03-orchestrators`)
-* **Concepto:** Por qué las aplicaciones agenticas superan los scripts `if...else`. Autonomía, abstracción y modularidad.
-* **Entregable:** Un orquestador supervisor jerárquico que descompone objetivos complejos y delega subtareas a trabajadores especializados (`data_retrieval`, `alert_dispatch`).
+### 3. The Need for an AI Orchestrator (`chapter-03-orchestrators`)
+* **Core Concept:** Overcoming brittle hardcoded `if...else` logic through abstraction, modularity, and runtime autonomy.
+* **Deliverable:** A supervisor orchestrator that decomposes user goals into structured sub-tasks and delegates execution across specialized worker modules (`data_retrieval`, `alert_dispatch`).
 
-### 4. Gestión de Memoria y Contexto (`chapter-04-memory`)
-* **Concepto:** La taxonomía cognitiva de CoALA (Short-Term, Semantic, Episodic y Procedural).
-* **Entregable:** Un agente con búfer circular de ventana deslizante, condensación por LLM, **caché sémantico en memoria** sin costo de tokens, y recuperación episódica vectorial.
+### 4. Memory and Context Management (`chapter-04-memory`)
+* **Core Concept:** Cognitive architectures (CoALA framework) applied to AI: Short-Term, Semantic, Episodic, and Procedural memory.
+* **Deliverable:** A multi-tier memory system featuring rolling context condensation, zero-token **semantic caching in memory**, and vector similarity retrieval over past interaction episodes.
 
 ```mermaid
 graph LR
-    Query[Consulta del Usuario] --> CacheCheck{¿Existe en Caché Sémantico?}
-    CacheCheck -->|HIT: Distancia Cosine >= 0.88| ReturnCached[Respuesta Inmediata: 0 Tokens]
-    CacheCheck -->|MISS| QueryEpisodic[Recuperar Episodios Previos de LTM]
-    QueryEpisodic --> BuildContext[Construir Prompt Aumentado: STM + LTM]
-    BuildContext --> Inference[Inferencia LLM]
-    Inference --> UpdateState[Actualizar STM y Poblar Caché Sémantico]
+    UserQuery[User Query] --> CacheCheck{Semantic Cache Hit?}
+    CacheCheck -->|HIT: Cosine >= 0.88| ReturnCached[Instant Response: 0 Token Cost]
+    CacheCheck -->|MISS| QueryEpisodic[Retrieve Past Episodes from LTM]
+    QueryEpisodic --> BuildContext[Build Augmented Prompt: STM + LTM]
+    BuildContext --> Inference[LLM Inference]
+    Inference --> UpdateState[Update STM Buffer & Populate Cache]
 ```
 
-### 5. Herramientas e Integraciones Externas (`chapter-05-tools`)
-* **Concepto:** Las herramientas como actuadores del agente en el entorno digital.
-* **Entregable:** Contratos Pydantic v2, traducción texto-a-SQL sobre SQLite, consultas concurrentes no bloqueantes (`asyncio.gather`) y RAG agentico con reformulación dinámica de consultas.
+### 5. Tools and External Integrations (`chapter-05-tools`)
+* **Core Concept:** Tools as the functional actuators of an agent.
+* **Deliverable:** Synchronous Text-to-SQL querying against SQLite, non-blocking asynchronous multi-region metrics polling (`asyncio.gather`), and agentic RAG with intent-driven query reformulation.
 
-### 6. Agente Integral con LangChain (`chapter-06-langchain-agent`)
-* **Concepto:** Unificación de los pilares **Build**, **Run** y **Manage** (LangSmith).
-* **Entregable:** **AskMamma**, asistente interactivo para un restaurante digital (*Mammachepiada*) que combina diálogo natural, inventario en SQLite, certificados de higiene en RAG y mutación transaccional de carrito.
+### 6. Building Your First AI Agent with LangChain (`chapter-06-langchain-agent`)
+* **Core Concept:** Unifying the **Build**, **Run**, and **Manage** (LangSmith) lifecycle.
+* **Deliverable:** **AskMamma**, an interactive digital eatery assistant (*Mammachepiada*) orchestrating conversational dialogue, structured SQLite menu queries, RAG over hygiene/compliance documentation, and transactional cart mutations.
 
-### 7. Aplicaciones Multi-Agente (`chapter-07-multi-agent`)
-* **Concepto:** Microservicios aplicados a IA. Topologías en red, reflexión, pipelines secuenciales y jerarquías supervisadas.
-* **Entregable:** Sistema jerárquico supervisor que analiza portafolios financieros (`sample_portfolio.json`), analiza tendencias de mercado en paralelo y sintetiza un informe formal (`.txt`).
+### 7. Multi-Agent Applications (`chapter-07-multi-agent`)
+* **Core Concept:** Microservice architecture applied to AI agents: loose coupling, horizontal scalability, and fault isolation.
+* **Deliverable:** A hierarchical supervisor state graph (LangGraph pattern) coordinating macro research (`search`), portfolio ingestion (`read_portfolio`), and structured document synthesis (`doc_writer`).
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Supervisor as Router Supervisor
-    participant Search as Agente de Búsqueda Macro
-    participant Reader as Lector de Portafolio
-    participant Writer as Generador de Informes
+    participant Supervisor as Supervisor Router
+    participant Search as Search Specialist
+    participant Reader as Portfolio Reader
+    participant Writer as Document Writer
 
-    Supervisor->>Search: Tarea: Evaluar entorno Q4 2025
-    Search-->>Supervisor: Reporte macro (tasas, dispersión tech)
-    Supervisor->>Reader: Tarea: Ingestar sample_portfolio.json
-    Reader-->>Supervisor: Detalle de posiciones (AAPL, MSFT, NVDA)
-    Supervisor->>Writer: Tarea: Sintetizar informe final
-    Writer-->>Supervisor: Archivo Portfolio_Optimization_Q4_2025.txt guardado
-    Supervisor->>Supervisor: Fin del Grafo (__end__)
+    Supervisor->>Search: Task: Research Macro Landscape Q4 2025
+    Search-->>Supervisor: Macro Report (Interest rates, tech dispersion)
+    Supervisor->>Reader: Task: Ingest sample_portfolio.json
+    Reader-->>Supervisor: Structured Positions (AAPL, MSFT, NVDA, JPM)
+    Supervisor->>Writer: Task: Synthesize Optimization Strategy
+    Writer-->>Supervisor: Saved Portfolio_Optimization_Q4_2025.txt
+    Supervisor->>Supervisor: Graph Termination (__end__)
 ```
 
-### 8. Protocolos de Próxima Generación (`chapter-08-protocols`)
-* **Concepto:** Pasar de aplicaciones monolíticas al estándar del **Agentic Web**.
-* **Entregable:** 
-  * **MCP (Anthropic):** Servidor/Cliente JSON-RPC 2.0 con esquemas estructurados para consulta de activos.
-  * **A2A (Google):** Descubrimiento y delegación horizontal entre pares mediante `agent-card.json`.
-  * **ACP (Virtuals):** Contratos de custodia (*escrow*), identidades con criptobilleteras y verificación oracular con IA.
+### 8. Blueprint for Next-Gen Agent Protocols (`chapter-08-protocols`)
+* **Core Concept:** The transition toward an open **Agentic Web** via standard communication, discovery, and value-exchange protocols.
+* **Deliverable:** 
+  * **Model Context Protocol (MCP - Anthropic):** Client-server architecture communicating over JSON-RPC 2.0.
+  * **Agent2Agent Protocol (A2A - Google):** Peer-to-peer delegation, structured task routing, and discovery via `agent-card.json`.
+  * **Agent Commerce Protocol (ACP - Virtuals):** Trustless escrow smart contracts, cryptographic wallet identities, and AI oracle verification.
 
 ```mermaid
 graph LR
     subgraph MCP_Scope [Model Context Protocol]
-        Agent[Agente] <-->|JSON-RPC 2.0| ToolsDB[Herramientas, Archivos y Bases de Datos]
+        AgentCore[Agent] <-->|JSON-RPC 2.0| ToolsDB[Local Tools, APIs & File Resources]
     end
 
     subgraph A2A_Scope [Agent2Agent Protocol]
-        Agent <-->|P2P Task Cards| OtherAgents[Agentes Externos / Proveedores Especialistas]
+        AgentCore <-->|P2P Task Cards| ExternalAgent[Specialist External Agent Networks]
     end
 
     subgraph ACP_Scope [Agent Commerce Protocol]
-        Agent <-->|Smart Contract Escrow| CryptoLedger[Liquidación Económica con Oráculo IA]
+        AgentCore <-->|Smart Contract Escrow| CryptoLedger[Economic Settlement with AI Oracle]
     end
 ```
 
-### 9. Desafíos Éticos, Guardrails & Gobernanza (`chapter-09-ethics-guardrails`)
-* **Concepto:** Responsabilidad operacional, sesgo algorítmico, prevención de manipulaciones y cumplimiento con el **EU AI Act**.
-* **Entregable:** Pipeline de defensa en capas con ofuscación automática de PII (emails, tarjetas), filtro de inyecciones (*Deceptive Delight*), escalamiento **Human-in-the-Loop** en transacciones críticas (> $500) y registro forense inmutable.
+### 9. Navigating Ethical Challenges in Real-World AI (`chapter-09-ethics-guardrails`)
+* **Core Concept:** Operationalizing Responsible AI, bias auditing, prompt injection mitigation, and EU AI Act compliance.
+* **Deliverable:** A layered guardrail pipeline featuring PII masking (emails, credit cards), adversarial prompt injection rejection, **Human-in-the-Loop** escalation on transactions exceeding policy limits (> $500), and immutable audit logging.
 
 ```mermaid
 graph LR
-    Input[Entrada Usuario] --> Ingress[Ingress Filter]
-    Ingress -->|Limpio| Core[Agente IA]
-    Ingress -->|Malicioso / Injection| Block[Rechazo Inmediato]
+    Input[User Input] --> Ingress[Ingress Filter]
+    Ingress -->|Sanitized| Core[Agent Brain]
+    Ingress -->|Prompt Injection / Jailbreak| Block[Immediate Safe Refusal]
     
-    Core --> Proposal[Propuesta de Acción Financiera]
-    Proposal --> PolicyCheck{¿Importe > $500?}
+    Core --> Proposal[Proposed Financial Action]
+    Proposal --> PolicyCheck{Transaction > $500?}
     
-    PolicyCheck -->|Sí| Escalation[Escalamiento HITL a Supervisor Humano]
-    PolicyCheck -->|No| AutoExec[Ejecución Autónoma]
+    PolicyCheck -->|Yes: Exceeds Bound| Escalation[Escalate to Human-in-the-Loop]
+    PolicyCheck -->|No: Safe Lane| AutoExec[Autonomous Execution]
     
-    Escalation -->|Aprobado| AutoExec
-    Escalation -->|Rechazado| Rollback[Cancelación y Alerta]
+    Escalation -->|Approved| AutoExec
+    Escalation -->|Rejected| Rollback[Abort & Alert]
     
-    AutoExec --> Audit[(Registro de Auditoría Forense)]
+    AutoExec --> Audit[(Immutable Audit Trail)]
 ```
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Technology Stack
 
-| Componente | Tecnología | Propósito |
+| Layer | Technology | Primary Functionality |
 | :--- | :--- | :--- |
-| **Lenguaje Core** | Python 3.11+ | Entorno de desarrollo unificado |
-| **Modelos LLM** | Google Gemini (`gemini-2.5-flash`) | Motor de razonamiento, extracción y síntesis |
-| **SDK Principal** | `google-genai` | Interfaz nativa y estructurada con endpoints de Gemini |
-| **Contratos de Datos** | Pydantic v2 | Validación de esquemas, JSON Schema y tipado estricto |
-| **Orquestación de Grafos**| LangGraph / StateGraph | Máquinas de estado cíclicas y control de transiciones |
-| **Bases de Datos** | SQLite (in-memory & persistente) | Gestión de inventario relacional y logs de auditoría forense |
-| **Computación Vectorial** | Vectores densos & Similaridad Coseno | Caché sémantico en memoria y recuperación episódica |
-| **Protocolos Soportados**| MCP (JSON-RPC 2.0), A2A, ACP | Interoperabilidad de herramientas, comunicación P2P y liquidación |
+| **Language** | Python 3.11+ | Unified agent runtime and script execution |
+| **Inference Engine** | Google Gemini (`gemini-2.5-flash`) | Context reasoning, structured planning, and generation |
+| **SDK** | `google-genai` | Native, typed client interface for Google models |
+| **Data Contracts** | Pydantic v2 | Input validation, schema enforcement, and JSON-RPC framing |
+| **Graph Runtime** | LangGraph / StateGraph | Cyclic state machines and dynamic conditional edges |
+| **Storage Engines** | SQLite (in-memory & persistent) | Structured catalog relational data and audit forensics |
+| **Vector Search** | Dense Embeddings & Cosine Metrics | Low-latency semantic caching and episodic retrieval |
+| **Protocol Standards** | MCP (JSON-RPC 2.0), A2A, ACP | Tool binding, agent federation, and value settlement |
 
 ---
 
-## 🚀 Puesta en Marcha Rápida
+## 🚀 Quickstart Guide
 
-### 1. Clonar el Repositorio
+### 1. Clone the Repository
 ```bash
 git clone git@github.com:OscarTMa/ai-agents-in-practice.git
 cd ai-agents-in-practice
 ```
 
-### 2. Configurar el Entorno Virtual
+### 2. Environment Setup
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Configurar Variables de Entorno
-Crea un archivo `.env` en la raíz del proyecto:
+### 3. Environment Configuration
+Create a `.env` file in the project root:
 ```bash
-GOOGLE_API_KEY="tu-api-key-de-google-gemini"
+GOOGLE_API_KEY="your-google-gemini-api-key"
 ```
 
-### 4. Ejecución de Módulos Clave
+### 4. Execute Verified Chapter Modules
 ```bash
-# Capítulo 3: Orquestador Jerárquico
+# Chapter 3: Hierarchical Supervisor Orchestrator
 python3 chapter-03-orchestrators/src/orchestrator.py
 
-# Capítulo 4: Memoria Cognitiva (STM, Caché y LTM)
+# Chapter 4: Cognitive Memory Agent (STM, Semantic Cache, Episodic LTM)
 python3 chapter-04-memory/src/memory_agent.py
 
-# Capítulo 5: Integración de Herramientas (Sync/Async/RAG)
+# Chapter 5: Tool Integration Agent (Sync SQL, Async Batch I/O, Agentic RAG)
 python3 chapter-05-tools/src/tool_integration_agent.py
 
-# Capítulo 6: Agente Integral AskMamma
+# Chapter 6: End-to-End E-Commerce Assistant (AskMamma)
 python3 chapter-06-langchain-agent/src/ask_mamma_agent.py
 
-# Capítulo 7: Multi-Agente con Supervisor
+# Chapter 7: Multi-Agent Investment Portfolio Supervisor
 python3 chapter-07-multi-agent/src/portfolio_supervisor.py
 
-# Capítulo 8: Protocolos de Nueva Generación (MCP, A2A, ACP)
+# Chapter 8: Protocol Suite (MCP JSON-RPC, A2A Agent Card, ACP Escrow)
 python3 chapter-08-protocols/src/agent_protocols.py
 
-# Capítulo 9: Guardrails Éticos y Human-in-the-Loop
+# Chapter 9: Ethical Guardrail Pipeline & Human-in-the-Loop Gateway
 python3 chapter-09-ethics-guardrails/src/guardrail_pipeline.py
 ```
 
 ---
 
-## 📜 Licencia
+## 📜 License
 
-Distribuido bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para más detalles.
+Distributed under the **MIT** License. See `LICENSE` for details.
