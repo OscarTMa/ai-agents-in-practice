@@ -8,6 +8,11 @@
 
 A practical, code-first technical repository covering the entire agentic architecture lifecycle: from cognitive inference foundations and ReAct loops to distributed multi-agent systems, open interoperability protocols (MCP, A2A, ACP), and production-grade ethical guardrail pipelines.
 
+<div align="center">
+  <img src=".assets/Capture d'écran 2026-09-29 205506.png" alt="ai-agents-in-practice" width="340"/>
+  <p><em>AI Agents in Practice: Design, implement, and scale autonomous AI systems for production. Valentina Alto (Packt Publishing).</em></p>
+</div>
+
 ---
 
 ## 🏗️ Repository Architecture & Navigation
